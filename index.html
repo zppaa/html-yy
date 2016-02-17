@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>引用html</title>
+    <style>
+        .con{
+            width: 100%;
+            min-height: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+	<div class="header">
+		<tpl src="header.html"></tpl>
+	</div>
+    <div class="con">
+        内容部分
+    </div>
+    <div class="footer">
+        <tpl src="footer.html"></tpl>
+    </div>
+</body>
+<script src="../jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    var tplList = $("tpl");
+    for (var i = 0; i < tplList.length; i++) {
+        var tpl = $(tplList[i]);
+        var src = tpl.attr("src");
+        (function (tpl) {
+            $.get(src, function (data) {
+                tpl.replaceWith(data);
+            });
+        })(tpl);
+    }
+});
+
+// $(function(){
+//     var tplList = $("tpl");
+//     for(var i = 0; i < tplList.length; i++){
+//         var index = $(this).index();
+//         var tpl = $(tplList[i]);
+//         var src = tpl.attr("src");
+//         tpl.attr("index",index);
+//         $.get(src,function(data){
+//             if(index == i){
+//                 $(tplList).eq(index).replaceWith(data);
+//             }
+//         })
+//     }
+// })
+</script>
+</html>
